@@ -1,0 +1,109 @@
+name: PDF Monkey Plans and Pricing
+description: Pricing plans for PDF Monkey PDF generation API service
+url: https://www.pdfmonkey.io/pricing
+created: 2026-06-13
+modified: 2026-06-13
+
+plans:
+
+  - name: Free
+    description: Free tier with limited monthly document generation for personal or evaluation use.
+    price: 0
+    currency: EUR
+    billing_period: monthly
+    documents_per_month: 20
+    retention_days: 1
+    max_generation_seconds: 30
+    team_members: 1
+    external_resources: false
+    features:
+      - Unlimited templates
+      - Handlebars template engine
+      - REST API access
+      - Dashboard template editor
+
+  - name: Starter
+    description: Entry-level paid plan for small-scale PDF generation workloads.
+    price: 5
+    price_annual: 4.50
+    currency: EUR
+    billing_period: monthly
+    documents_per_month: 300
+    retention_days: 1
+    max_generation_seconds: 30
+    team_members: 1
+    external_resources: true
+    features:
+      - All Free features
+      - Load external images, fonts, CSS, and JavaScript
+      - Fillable PDF forms
+      - Password protection
+
+  - name: Pro
+    description: Mid-tier plan for growing teams with higher volume and longer retention.
+    price: 15
+    price_annual: 13.50
+    currency: EUR
+    billing_period: monthly
+    documents_per_month: 3000
+    retention_days: 7
+    max_generation_seconds: 120
+    team_members: 2
+    external_resources: true
+    features:
+      - All Starter features
+      - 7-day document retention
+      - 2-minute max generation time
+      - Up to 2 team members
+
+  - name: Pro+
+    description: Advanced plan for teams with unlimited retention, share links, and pay-as-you-go overages.
+    price: 60
+    price_annual: 54
+    currency: EUR
+    billing_period: monthly
+    documents_per_month: 5000
+    retention_days: unlimited
+    max_generation_seconds: 180
+    team_members: unlimited
+    overage_per_document: 0.006
+    external_resources: true
+    features:
+      - All Pro features
+      - Unlimited document retention
+      - PDF Share links
+      - Unlimited team members
+      - Pay-as-you-go overages at €0.006/document
+
+  - name: Premium
+    description: High-volume plan for enterprise workloads with 60,000 documents per month.
+    price: 300
+    price_annual: 270
+    currency: EUR
+    billing_period: monthly
+    documents_per_month: 60000
+    retention_days: unlimited
+    max_generation_seconds: 300
+    team_members: unlimited
+    overage_per_document: 0.005
+    external_resources: true
+    features:
+      - All Pro+ features
+      - 60,000 documents per month
+      - 5-minute max generation time
+      - Pay-as-you-go overages at €0.005/document
+
+add_ons:
+
+  - name: Boost Pack
+    description: One-time purchase of additional document credits.
+    price: 5
+    currency: EUR
+    documents: 1000
+    notes: Can be added to any paid plan; does not expire.
+
+notes:
+  - All plans include unlimited templates, fillable PDF forms, and password protection.
+  - Annual billing saves 10% on all paid plans.
+  - A 30-day free trial offering 300 documents is available with no credit card required.
+  - Download URLs from the API are temporary signed S3 links valid for 1 hour.

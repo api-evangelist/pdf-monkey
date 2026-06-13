@@ -1,0 +1,64 @@
+name: PDF Monkey Rate Limits
+description: Rate limiting and quota information for the PDF Monkey API
+url: https://pdfmonkey.io/docs/api/documents/
+created: 2026-06-13
+modified: 2026-06-13
+
+rate_limits:
+
+  - type: monthly_document_quota
+    description: Each plan includes a fixed number of PDF documents that can be generated per calendar month. This is the primary quota constraint.
+    enforced: true
+    resets: monthly
+    limits:
+      - plan: Free
+        documents: 20
+      - plan: Starter
+        documents: 300
+      - plan: Pro
+        documents: 3000
+      - plan: Pro+
+        documents: 5000
+      - plan: Premium
+        documents: 60000
+
+  - type: api_request_rate
+    description: No hard rate limit is enforced on the number of API requests per second or per minute. Each call that generates a document consumes one quota unit from the monthly allocation.
+    enforced: false
+    notes: No explicit per-second or per-minute rate cap is documented. Throughput is bounded by plan document quota.
+
+  - type: synchronous_timeout
+    description: The synchronous generation endpoint (POST /api/v1/documents/sync) waits up to 6 minutes for document generation to complete before returning a timeout response.
+    endpoint: POST /api/v1/documents/sync
+    timeout_seconds: 360
+
+  - type: max_generation_time
+    description: Maximum allowed time for a single PDF generation job, varies by plan.
+    limits:
+      - plan: Free
+        max_seconds: 30
+      - plan: Starter
+        max_seconds: 30
+      - plan: Pro
+        max_seconds: 120
+      - plan: Pro+
+        max_seconds: 180
+      - plan: Premium
+        max_seconds: 300
+
+  - type: pagination
+    description: The document list endpoint returns a maximum of 24 items per page.
+    endpoint: GET /api/v1/document_cards
+    page_size: 24
+
+  - type: download_url_expiry
+    description: Signed download URLs returned by the API and webhooks are temporary and expire after 1 hour.
+    expiry_seconds: 3600
+
+  - type: meta_field_size
+    description: The meta field on a document request has a maximum size limit.
+    max_size_kb: 200
+
+notes:
+  - Webhook deliveries use at-least-once semantics and may be retried with exponential backoff on failure.
+  - Pay-as-you-go overage pricing is available on Pro+ and Premium plans when the monthly quota is exceeded.

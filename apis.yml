@@ -1,0 +1,87 @@
+aid: pdf-monkey
+name: PDF Monkey
+description: >-
+  PDF Monkey is a PDF generation REST API that uses Handlebars templates to
+  produce high-quality PDFs from JSON data. Developers build templates in a
+  visual dashboard, call the API with dynamic JSON payloads, and retrieve
+  generated documents via signed download URLs or webhooks. The service supports
+  document management, asynchronous and synchronous generation, webhook
+  notifications powered by Svix, fillable PDF forms, password protection, and
+  integrations with Zapier, Make, and n8n.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/pdf-monkey/refs/heads/main/apis.yml
+created: 2026-06-13
+modified: 2026-06-13
+specificationVersion: "0.19"
+
+tags:
+  - PDF
+  - Document Generation
+  - Templates
+  - Handlebars
+  - REST API
+  - Webhooks
+
+apis:
+
+  - aid: pdf-monkey:pdf-monkey-api
+    name: PDF Monkey API
+    description: >-
+      REST API for generating, managing, and retrieving PDF documents using
+      Handlebars templates and JSON data payloads. Supports asynchronous and
+      synchronous generation modes, document lifecycle management, and webhook
+      notifications for real-time event handling.
+    humanURL: https://pdfmonkey.io/docs/
+    baseURL: https://api.pdfmonkey.io/api/v1
+    tags:
+      - PDF
+      - Document Generation
+      - Handlebars
+      - Webhooks
+    properties:
+      - type: Documentation
+        url: https://pdfmonkey.io/docs/
+      - type: Authentication
+        url: https://pdfmonkey.io/docs/api/authentication/
+      - type: OpenAPI
+        url: https://pdfmonkey.io/docs/api/documents/
+
+common:
+
+  - type: Website
+    url: https://www.pdfmonkey.io
+
+  - type: Documentation
+    url: https://pdfmonkey.io/docs/
+
+  - type: GitHubOrg
+    url: https://github.com/pdfmonkey
+
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/pdfmonkey/
+
+  - type: Blog
+    url: https://www.pdfmonkey.io/blog/
+
+  - type: Pricing
+    url: https://www.pdfmonkey.io/pricing/
+
+  - type: StatusPage
+    url: https://status.pdfmonkey.io/
+
+  - type: X
+    url: https://twitter.com/pdfmonkey
+
+  - type: Plans
+    url: plans/pdf-monkey-plans-pricing.yml
+
+  - type: RateLimits
+    url: rate-limits/pdf-monkey-rate-limits.yml
+
+  - type: FinOps
+    url: finops/pdf-monkey-finops.yml
+
+maintainers:
+
+  - FN: Kin Lane
+    email: kin@apievangelist.com

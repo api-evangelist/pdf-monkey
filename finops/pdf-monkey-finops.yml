@@ -1,0 +1,76 @@
+name: PDF Monkey FinOps
+description: Financial operations guidance for managing PDF Monkey API costs
+url: https://www.pdfmonkey.io/pricing
+created: 2026-06-13
+modified: 2026-06-13
+
+currency: EUR
+
+cost_drivers:
+
+  - name: Monthly Document Quota
+    description: The primary cost driver is the number of PDF documents generated per month. Each plan includes a fixed allocation; exceeding it on supported plans incurs overage charges.
+    unit: document
+    type: quota
+
+  - name: Overage Documents
+    description: On Pro+ and Premium plans, documents generated beyond the monthly quota are billed at a per-document overage rate when pay-as-you-go is enabled.
+    unit: document
+    type: variable
+    rates:
+      - plan: Pro+
+        price_per_document: 0.006
+        currency: EUR
+      - plan: Premium
+        price_per_document: 0.005
+        currency: EUR
+
+  - name: Boost Packs
+    description: One-time purchase of 1,000 additional document credits for €5, available on any paid plan.
+    unit: pack
+    price_per_pack: 5
+    documents_per_pack: 1000
+    effective_price_per_document: 0.005
+    currency: EUR
+
+optimization:
+
+  - strategy: Right-size your plan
+    description: Analyze your monthly document generation volume over at least 30 days. Choose the plan whose quota matches your P90 usage to avoid frequent overage charges or paying for unused capacity.
+
+  - strategy: Use annual billing
+    description: Switching to annual billing reduces the monthly cost by 10% on all paid plans. Evaluate this once your usage pattern is stable.
+
+  - strategy: Use async generation with webhooks
+    description: Prefer the asynchronous POST /api/v1/documents endpoint with webhooks rather than the synchronous endpoint to avoid holding open connections. This reduces infrastructure costs on the client side.
+
+  - strategy: Poll with document_cards not documents
+    description: Use GET /api/v1/document_cards/{id} for status polling instead of GET /api/v1/documents/{id}. The card endpoint is lighter weight and avoids fetching full payloads and logs unnecessarily.
+
+  - strategy: Minimize failed generations
+    description: Each document that fails generation still consumes quota. Validate template syntax and payload data locally using the PDFMonkey CLI before submitting to the API in production.
+
+  - strategy: Use Boost Packs for spikes
+    description: For predictable short-term volume spikes (e.g., end-of-month reporting), Boost Packs at €5/1,000 documents offer a cost-effective buffer instead of upgrading to the next plan tier.
+
+  - strategy: Set appropriate document retention
+    description: Only upgrade to plans with longer retention if you actually need to re-download documents after generation. If your workflow downloads immediately, shorter retention plans are sufficient.
+
+monitoring:
+
+  - metric: monthly_documents_generated
+    description: Track documents generated versus plan quota daily to anticipate overage charges.
+    source: API (GET /api/v1/document_cards with status filter)
+
+  - metric: generation_failure_rate
+    description: Failed documents waste quota. Monitor failure_cause fields in webhooks to identify and fix template or payload issues.
+    source: Webhooks (documents.generation.failure events)
+
+  - metric: average_generation_time
+    description: Track generation times to identify slow templates that might approach plan time limits.
+    source: API document objects (created_at vs updated_at)
+
+notes:
+  - Pricing is denominated in Euros (EUR). Exchange rate fluctuations affect effective cost for non-EUR billing.
+  - PDFMonkey is a bootstrapped independent product; no enterprise contract pricing is publicly listed.
+  - A free 30-day trial with 300 documents is available with no credit card, suitable for proof-of-concept cost modeling.
