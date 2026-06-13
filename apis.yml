@@ -44,7 +44,7 @@ apis:
       - type: Authentication
         url: https://pdfmonkey.io/docs/api/authentication/
       - type: OpenAPI
-        url: https://pdfmonkey.io/docs/api/documents/
+        url: openapi/openapi.json
 
 common:
 

@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.pdfmonkey.io/schemas/document.json",
+  "title": "Document",
+  "description": "A PDF Monkey document representing a generated or in-progress PDF file created from a template and data payload.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique document identifier"
+    },
+    "app_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Workspace (app) identifier this document belongs to"
+    },
+    "checksum": {
+      "type": ["string", "null"],
+      "description": "MD5 checksum of the generated PDF file"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the document was created"
+    },
+    "document_template_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "UUID of the template used for generation"
+    },
+    "download_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Temporary signed S3 URL to download the generated PDF. Valid for 1 hour after generation. Null until generation completes successfully."
+    },
+    "failure_cause": {
+      "type": ["string", "null"],
+      "description": "Human-readable reason for generation failure. Null if not in failure state."
+    },
+    "filename": {
+      "type": ["string", "null"],
+      "description": "Filename of the generated PDF"
+    },
+    "generation_logs": {
+      "type": ["array", "null"],
+      "description": "Array of log entries from the PDF generation process",
+      "items": {
+        "type": "object"
+      }
+    },
+    "meta": {
+      "description": "Custom metadata attached to the document. Maximum size 200 KB.",
+      "oneOf": [
+        {"type": "object"},
+        {"type": "string"},
+        {"type": "null"}
+      ]
+    },
+    "output_type": {
+      "type": "string",
+      "enum": ["pdf", "image"],
+      "description": "Output format of the generated file"
+    },
+    "payload": {
+      "description": "JSON data payload used to render the Handlebars/Liquid template",
+      "oneOf": [
+        {"type": "object"},
+        {"type": "string"},
+        {"type": "null"}
+      ]
+    },
+    "preview_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "URL for previewing the document"
+    },
+    "public_share_link": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Public shareable link if share_links is enabled on the account"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "pending", "generating", "success", "failure"],
+      "description": "Current lifecycle status of the document"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the last update"
+    }
+  },
+  "required": ["id", "app_id", "created_at", "document_template_id", "status", "updated_at"]
+}

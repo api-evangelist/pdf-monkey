@@ -1,0 +1,179 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "pdfmonkey": "https://pdfmonkey.io/vocab#",
+    "openapi": "https://openapis.org/ontology#",
+    "aid": "https://apis.io/vocab#aid"
+  },
+  "@type": "WebAPI",
+  "@id": "https://api.pdfmonkey.io/api/v1",
+  "name": "PDF Monkey API",
+  "description": "REST API for generating, managing, and retrieving PDF documents using Handlebars/Liquid templates and JSON data payloads. Supports asynchronous and synchronous generation modes, document lifecycle management, template management, and webhook notifications.",
+  "url": "https://pdfmonkey.io/docs/",
+  "termsOfService": "https://www.pdfmonkey.io/terms",
+  "provider": {
+    "@type": "Organization",
+    "name": "PDF Monkey",
+    "url": "https://www.pdfmonkey.io",
+    "sameAs": [
+      "https://twitter.com/pdfmonkey",
+      "https://www.linkedin.com/company/pdfmonkey/",
+      "https://github.com/pdfmonkey"
+    ]
+  },
+  "documentation": "https://pdfmonkey.io/docs/",
+  "potentialAction": [
+    {
+      "@type": "Action",
+      "name": "Create Document",
+      "description": "Asynchronously create a PDF document from a template and JSON payload",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "POST",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/documents"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Create Document Synchronously",
+      "description": "Create and generate a PDF document synchronously, waiting for completion",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "POST",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/documents/sync"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Get Document",
+      "description": "Retrieve a full document object including payload and generation logs",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "GET",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/documents/{id}"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Update Document",
+      "description": "Update a document and optionally trigger regeneration",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "PUT",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/documents/{id}"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Delete Document",
+      "description": "Permanently delete a document and its generated file",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "DELETE",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/documents/{id}"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "List Document Cards",
+      "description": "Retrieve a paginated list of lightweight document card objects with filtering support",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "GET",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/document_cards"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Get Document Card",
+      "description": "Retrieve a lightweight document card for polling generation status",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "GET",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/document_cards/{id}"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "List Template Cards",
+      "description": "Retrieve a paginated list of template cards for a workspace",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "GET",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/document_template_cards"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Create Template",
+      "description": "Create a new document template with HTML/Liquid body, SCSS styles, and settings",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "POST",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/document_templates"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Get Template",
+      "description": "Retrieve the full document template object",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "GET",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/document_templates/{id}"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Update Template",
+      "description": "Update an existing document template",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "PUT",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/document_templates/{id}"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Delete Template",
+      "description": "Permanently delete a document template",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "DELETE",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/document_templates/{id}"
+      }
+    },
+    {
+      "@type": "Action",
+      "name": "Get Current User",
+      "description": "Retrieve the authenticated user account details and verify API credentials",
+      "target": {
+        "@type": "EntryPoint",
+        "httpMethod": "GET",
+        "urlTemplate": "https://api.pdfmonkey.io/api/v1/current_user"
+      }
+    }
+  ],
+  "pdfmonkey:features": [
+    "Asynchronous PDF generation",
+    "Synchronous PDF generation",
+    "Handlebars/Liquid template engine",
+    "SCSS stylesheet support",
+    "Webhook notifications via Svix",
+    "Fillable PDF forms",
+    "Password protection",
+    "Visual template builder",
+    "Zapier integration",
+    "Make integration",
+    "n8n integration",
+    "Signed download URLs",
+    "Document lifecycle management",
+    "Template versioning (draft/published)"
+  ],
+  "pdfmonkey:authentication": {
+    "@type": "pdfmonkey:BearerTokenAuthentication",
+    "description": "Bearer token authentication using API secret key from Dashboard",
+    "headerName": "Authorization",
+    "headerFormat": "Bearer {API_KEY}"
+  }
+}

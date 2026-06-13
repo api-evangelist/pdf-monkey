@@ -1,0 +1,126 @@
+{
+  "title": "PDF Monkey API Vocabulary",
+  "description": "Domain vocabulary and key terms for the PDF Monkey PDF generation API.",
+  "terms": [
+    {
+      "term": "Document",
+      "definition": "A generated or in-progress PDF file created by rendering a DocumentTemplate with a specific JSON payload. Documents have a lifecycle status (draft, pending, generating, success, failure).",
+      "relatedTerms": ["DocumentCard", "DocumentTemplate", "Payload"]
+    },
+    {
+      "term": "DocumentCard",
+      "definition": "A lightweight representation of a Document that excludes large fields like payload and generation_logs. Used for listing and polling generation status efficiently.",
+      "relatedTerms": ["Document"]
+    },
+    {
+      "term": "DocumentTemplate",
+      "definition": "A reusable template that defines the HTML/Liquid body, SCSS styles, sample data, and PDF settings used to generate documents. Templates support both code editor and visual builder modes.",
+      "relatedTerms": ["Document", "Body", "Settings", "EditionMode"]
+    },
+    {
+      "term": "DocumentTemplateCard",
+      "definition": "A lightweight representation of a DocumentTemplate used in listing endpoints. Excludes body, styles, and settings content.",
+      "relatedTerms": ["DocumentTemplate"]
+    },
+    {
+      "term": "Payload",
+      "definition": "The JSON data object passed when creating a document that is merged with the template body during generation. The template uses Handlebars/Liquid syntax to reference payload values.",
+      "relatedTerms": ["Document", "DocumentTemplate"]
+    },
+    {
+      "term": "Meta",
+      "definition": "Custom metadata object attached to a document for application-level tracking (e.g., order IDs, customer IDs). Maximum size is 200 KB. Not used in PDF rendering.",
+      "relatedTerms": ["Document"]
+    },
+    {
+      "term": "Status",
+      "definition": "The current lifecycle state of a document. Values: draft (not yet queued), pending (queued for generation), generating (actively being processed), success (completed successfully), failure (generation failed).",
+      "values": ["draft", "pending", "generating", "success", "failure"],
+      "relatedTerms": ["Document", "DocumentCard"]
+    },
+    {
+      "term": "DownloadURL",
+      "definition": "A temporary signed URL pointing to the generated PDF on Amazon S3. Valid for 1 hour from generation. Only available when document status is 'success'.",
+      "relatedTerms": ["Document", "DocumentCard"]
+    },
+    {
+      "term": "EditionMode",
+      "definition": "The template editing interface mode. 'code' uses the HTML/Liquid/SCSS code editor; 'builder' uses a visual drag-and-drop interface.",
+      "values": ["code", "builder"],
+      "relatedTerms": ["DocumentTemplate"]
+    },
+    {
+      "term": "OutputType",
+      "definition": "The format of the generated file. 'pdf' produces a PDF document; 'image' produces a rasterized image.",
+      "values": ["pdf", "image"],
+      "relatedTerms": ["Document", "DocumentTemplate"]
+    },
+    {
+      "term": "Settings",
+      "definition": "PDF generation configuration on a template controlling page dimensions, margins, orientation, headers, footers, and rendering options.",
+      "relatedTerms": ["DocumentTemplate", "PaperFormat", "Orientation"]
+    },
+    {
+      "term": "PaperFormat",
+      "definition": "The standard page size for generated PDFs. Supported: a0, a1, a2, a3, a4, a5, a6, letter, custom. Use 'custom' with paper_height and paper_width for non-standard sizes.",
+      "values": ["a0", "a1", "a2", "a3", "a4", "a5", "a6", "letter", "custom"],
+      "relatedTerms": ["Settings"]
+    },
+    {
+      "term": "Orientation",
+      "definition": "Page orientation of the generated PDF. Either 'portrait' (vertical) or 'landscape' (horizontal).",
+      "values": ["portrait", "landscape"],
+      "relatedTerms": ["Settings"]
+    },
+    {
+      "term": "TTL",
+      "definition": "Time-to-live in seconds set on a template. Determines how long generated documents and their download URLs are retained before automatic deletion.",
+      "relatedTerms": ["DocumentTemplate"]
+    },
+    {
+      "term": "Workspace",
+      "definition": "An organizational container (also called 'app') grouping templates and documents. Identified by app_id in the API.",
+      "relatedTerms": ["DocumentTemplate", "Document"]
+    },
+    {
+      "term": "TemplateFolder",
+      "definition": "An organizational folder within a workspace used to group related document templates.",
+      "relatedTerms": ["DocumentTemplate", "Workspace"]
+    },
+    {
+      "term": "Identifier",
+      "definition": "A human-readable string (1-100 chars) used to reference a template by name instead of UUID. Must be unique within a workspace.",
+      "relatedTerms": ["DocumentTemplate"]
+    },
+    {
+      "term": "SynchronousGeneration",
+      "definition": "A generation mode (via POST /documents/sync) where the API request waits until PDF generation completes before returning. Maximum wait time is 6 minutes. Returns a DocumentCard directly.",
+      "relatedTerms": ["Document", "AsynchronousGeneration"]
+    },
+    {
+      "term": "AsynchronousGeneration",
+      "definition": "The default generation mode (via POST /documents) where the API returns immediately with status 'pending'. The client must poll or use webhooks to detect completion.",
+      "relatedTerms": ["Document", "SynchronousGeneration", "Webhook"]
+    },
+    {
+      "term": "Webhook",
+      "definition": "HTTP callback notifications sent by PDF Monkey (via Svix) when document generation events occur. Allows applications to react to completion without polling.",
+      "relatedTerms": ["Document", "AsynchronousGeneration"]
+    },
+    {
+      "term": "PdfEngine",
+      "definition": "The rendering engine used to convert HTML templates into PDF files. Referenced by pdf_engine_id on templates. Engines may be deprecated over time.",
+      "relatedTerms": ["DocumentTemplate"]
+    },
+    {
+      "term": "BearerToken",
+      "definition": "The API authentication mechanism. Include the secret API key from the Dashboard as 'Authorization: Bearer YOUR_SECRET_KEY' in all API requests.",
+      "relatedTerms": ["Authentication"]
+    },
+    {
+      "term": "Draft",
+      "definition": "An unpublished version of template content (body_draft, scss_style_draft, settings_draft). Draft fields are edited in the Dashboard and must be published to take effect in document generation.",
+      "relatedTerms": ["DocumentTemplate"]
+    }
+  ]
+}

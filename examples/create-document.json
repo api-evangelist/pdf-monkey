@@ -1,0 +1,77 @@
+{
+  "title": "Create Document Example",
+  "description": "Example request and response for creating a PDF document asynchronously using the PDF Monkey API.",
+  "request": {
+    "method": "POST",
+    "url": "https://api.pdfmonkey.io/api/v1/documents",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "document": {
+        "document_template_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "payload": {
+          "customer_name": "Jane Doe",
+          "invoice_number": "INV-2024-001",
+          "invoice_date": "2024-06-13",
+          "line_items": [
+            {
+              "description": "API Integration Service",
+              "quantity": 10,
+              "unit_price": 99.00,
+              "total": 990.00
+            },
+            {
+              "description": "Support & Maintenance",
+              "quantity": 1,
+              "unit_price": 260.00,
+              "total": 260.00
+            }
+          ],
+          "subtotal": 1250.00,
+          "tax_rate": 0.20,
+          "tax_amount": 250.00,
+          "total": 1500.00
+        },
+        "meta": {
+          "order_id": "ORD-789",
+          "customer_id": "CUST-456"
+        },
+        "status": "pending"
+      }
+    }
+  },
+  "response": {
+    "status": 201,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "document": {
+        "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+        "app_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+        "checksum": null,
+        "created_at": "2024-06-13T14:30:00Z",
+        "document_template_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "download_url": null,
+        "failure_cause": null,
+        "filename": null,
+        "generation_logs": null,
+        "meta": {
+          "order_id": "ORD-789",
+          "customer_id": "CUST-456"
+        },
+        "output_type": "pdf",
+        "payload": {
+          "customer_name": "Jane Doe",
+          "invoice_number": "INV-2024-001"
+        },
+        "preview_url": null,
+        "public_share_link": null,
+        "status": "pending",
+        "updated_at": "2024-06-13T14:30:00Z"
+      }
+    }
+  }
+}
