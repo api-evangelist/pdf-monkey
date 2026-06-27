@@ -2,10 +2,13 @@
   "repo": "pdf-monkey",
   "feeds": [
     {
-      "source": "https://www.linkedin.com/company/pdfmonkey/",
-      "error": "HTTPError"
+      "source": "https://www.pdfmonkey.io/blog/",
+      "feed_url": "",
+      "saved": 0,
+      "method": "agent-scrape"
     }
   ],
+  "fetched": "2026-06-27T13:00:49Z",
   "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "agent_pulled": "2026-06-27"
 }
