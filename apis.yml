@@ -48,6 +48,10 @@ apis:
 
 common:
 
+  - type: DomainSecurity
+    url: security/pdf-monkey-domain-security.yml
+  - type: Authentication
+    url: authentication/pdf-monkey-authentication.yml
   - type: Website
     url: https://www.pdfmonkey.io
 
