@@ -48,6 +48,8 @@ apis:
 
 common:
 
+  - type: AgenticAccess
+    url: agentic-access/pdf-monkey-agentic-access.yml
   - type: DomainSecurity
     url: security/pdf-monkey-domain-security.yml
   - type: Authentication
