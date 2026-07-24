@@ -1,0 +1,149 @@
+openapi: 3.1.0
+info:
+  title: PDF Monkey Authentication API
+  description: REST API for generating, managing, and retrieving PDF documents using Handlebars/Liquid templates and JSON data payloads. Supports asynchronous and synchronous generation modes, document lifecycle management, template management, and webhook notifications for real-time event handling.
+  version: 1.0.0
+  contact:
+    url: https://pdfmonkey.io/docs/
+  termsOfService: https://www.pdfmonkey.io/terms
+  license:
+    name: Proprietary
+servers:
+- url: https://api.pdfmonkey.io/api/v1
+  description: PDF Monkey Production API
+security:
+- bearerAuth: []
+tags:
+- name: Authentication
+  description: Endpoints for verifying API credentials and retrieving account information
+paths:
+  /current_user:
+    get:
+      operationId: getCurrentUser
+      summary: Get current user
+      description: Retrieve the current authenticated user account information. Useful for verifying API credentials.
+      tags:
+      - Authentication
+      responses:
+        '200':
+          description: Authenticated user details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentUserResponse'
+              example:
+                current_user:
+                  id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                  auth_token: your_api_key_here
+                  available_documents: 500
+                  created_at: '2024-01-15T10:30:00Z'
+                  current_plan: starter
+                  current_plan_interval: monthly
+                  desired_name: Acme Corp
+                  email: user@example.com
+                  lang: en
+                  paying_customer: true
+                  trial_ends_on: null
+                  updated_at: '2024-06-01T08:00:00Z'
+                  block_resources: false
+                  share_links: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    CurrentUserResponse:
+      type: object
+      properties:
+        current_user:
+          $ref: '#/components/schemas/CurrentUser'
+    ApiError:
+      type: object
+      properties:
+        status:
+          type: string
+          description: HTTP status code as string
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Detailed error description
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+    CurrentUser:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: User unique identifier
+        auth_token:
+          type: string
+          description: Current API authentication token
+        available_documents:
+          type: integer
+          description: Number of remaining documents available in the current billing period
+        created_at:
+          type: string
+          format: date-time
+          description: Account creation timestamp
+        current_plan:
+          type: string
+          description: Name of the current subscription plan
+        current_plan_interval:
+          type: string
+          enum:
+          - monthly
+          - yearly
+          description: Billing interval for the current plan
+        desired_name:
+          type: string
+          description: Display name for the account
+        email:
+          type: string
+          format: email
+          description: Account email address
+        lang:
+          type: string
+          description: Preferred language code
+        paying_customer:
+          type: boolean
+          description: Whether this is a paying customer
+        trial_ends_on:
+          type:
+          - string
+          - 'null'
+          format: date
+          description: Date when trial ends, null if not in trial
+        updated_at:
+          type: string
+          format: date-time
+          description: Last account update timestamp
+        block_resources:
+          type: boolean
+          description: Whether external resources are blocked in PDF generation
+        share_links:
+          type: boolean
+          description: Whether public share links are enabled
+  responses:
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - status: '401'
+              title: Unauthorized
+              detail: We were unable to authenticate you based on the provided API key.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using your PDF Monkey API secret key as a Bearer token in the Authorization header.

@@ -1,0 +1,531 @@
+openapi: 3.1.0
+info:
+  title: PDF Monkey Authentication Documents API
+  description: REST API for generating, managing, and retrieving PDF documents using Handlebars/Liquid templates and JSON data payloads. Supports asynchronous and synchronous generation modes, document lifecycle management, template management, and webhook notifications for real-time event handling.
+  version: 1.0.0
+  contact:
+    url: https://pdfmonkey.io/docs/
+  termsOfService: https://www.pdfmonkey.io/terms
+  license:
+    name: Proprietary
+servers:
+- url: https://api.pdfmonkey.io/api/v1
+  description: PDF Monkey Production API
+security:
+- bearerAuth: []
+tags:
+- name: Documents
+  description: Create, retrieve, update, delete, and list PDF documents
+paths:
+  /documents:
+    post:
+      operationId: createDocument
+      summary: Create a document
+      description: Asynchronously create a new PDF document from a template. Returns immediately with status 'pending'. Poll the document_cards endpoint or use webhooks to detect completion.
+      tags:
+      - Documents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentCreateRequest'
+            example:
+              document:
+                document_template_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                payload:
+                  customer_name: Jane Doe
+                  invoice_number: INV-2024-001
+                  total: 1250.0
+                meta:
+                  order_id: ORD-789
+                status: pending
+      responses:
+        '201':
+          description: Document created and queued for generation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /documents/sync:
+    post:
+      operationId: createDocumentSync
+      summary: Create a document synchronously
+      description: Synchronously create and generate a PDF document. The request waits until generation is complete (up to 6 minutes) before returning. Returns a lightweight DocumentCard object.
+      tags:
+      - Documents
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentCreateRequest'
+            example:
+              document:
+                document_template_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                payload:
+                  customer_name: Jane Doe
+                  invoice_number: INV-2024-001
+                status: pending
+      responses:
+        '200':
+          description: Document generated synchronously
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentCardResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /documents/{id}:
+    get:
+      operationId: getDocument
+      summary: Get a document
+      description: Retrieve the full document object including payload and generation logs. Use document_cards/{id} when the full payload is not needed.
+      tags:
+      - Documents
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Full document object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateDocument
+      summary: Update a document
+      description: Update a document's properties. Set status to 'pending' to trigger regeneration.
+      tags:
+      - Documents
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DocumentUpdateRequest'
+            example:
+              document:
+                payload:
+                  customer_name: John Doe
+                  invoice_number: INV-2024-002
+                status: pending
+      responses:
+        '200':
+          description: Updated document object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+    delete:
+      operationId: deleteDocument
+      summary: Delete a document
+      description: Permanently delete a document and its generated file.
+      tags:
+      - Documents
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '204':
+          description: Document deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /document_cards:
+    get:
+      operationId: listDocumentCards
+      summary: List document cards
+      description: Retrieve a paginated list of lightweight document card objects. Supports filtering by template, status, workspace, and update time. Returns up to 24 documents per page.
+      tags:
+      - Documents
+      parameters:
+      - name: page[number]
+        in: query
+        description: Page number for pagination
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - name: q[document_template_id]
+        in: query
+        description: Filter by template UUID or comma-separated list of UUIDs
+        schema:
+          type: string
+      - name: q[status]
+        in: query
+        description: Filter by document status
+        schema:
+          $ref: '#/components/schemas/DocumentStatus'
+      - name: q[workspace_id]
+        in: query
+        description: Filter by workspace UUID
+        schema:
+          type: string
+          format: uuid
+      - name: q[updated_since]
+        in: query
+        description: Filter documents updated after this timestamp (Unix timestamp or ISO 8601)
+        schema:
+          type: string
+      - name: q[search]
+        in: query
+        description: Search by document ID (exact) or filename (partial match)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated list of document cards
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentCardListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /document_cards/{id}:
+    get:
+      operationId: getDocumentCard
+      summary: Get a document card
+      description: Retrieve a lightweight document card object. Recommended for polling document generation status as it excludes the large payload and generation_logs fields.
+      tags:
+      - Documents
+      parameters:
+      - $ref: '#/components/parameters/DocumentId'
+      responses:
+        '200':
+          description: Document card object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentCardResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Document:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Document unique identifier
+        app_id:
+          type: string
+          format: uuid
+          description: Workspace (app) identifier
+        checksum:
+          type:
+          - string
+          - 'null'
+          description: MD5 checksum of the generated PDF file
+        created_at:
+          type: string
+          format: date-time
+          description: Document creation timestamp
+        document_template_id:
+          type: string
+          format: uuid
+          description: ID of the template used to generate this document
+        download_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Temporary signed URL to download the generated PDF. Valid for 1 hour. Null until generation completes.
+        failure_cause:
+          type:
+          - string
+          - 'null'
+          description: Reason for generation failure, null if not failed
+        filename:
+          type:
+          - string
+          - 'null'
+          description: Generated filename for the PDF
+        generation_logs:
+          type:
+          - array
+          - 'null'
+          description: Logs from the PDF generation process
+          items:
+            type: object
+        meta:
+          description: Custom metadata attached to the document (max 200 KB)
+          oneOf:
+          - type: object
+          - type: string
+        output_type:
+          type: string
+          enum:
+          - pdf
+          - image
+          description: Output format type
+        payload:
+          description: JSON data payload used to render the template
+          oneOf:
+          - type: object
+          - type: string
+        preview_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: URL for document preview
+        public_share_link:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Public shareable link for the document, if share links are enabled
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        updated_at:
+          type: string
+          format: date-time
+          description: Last document update timestamp
+    DocumentStatus:
+      type: string
+      enum:
+      - draft
+      - pending
+      - generating
+      - success
+      - failure
+      description: Current generation status of a document
+    DocumentUpdateRequest:
+      type: object
+      required:
+      - document
+      properties:
+        document:
+          type: object
+          properties:
+            document_template_id:
+              type: string
+              format: uuid
+            payload:
+              oneOf:
+              - type: object
+              - type: string
+            meta:
+              oneOf:
+              - type: object
+              - type: string
+            status:
+              type: string
+              enum:
+              - draft
+              - pending
+              description: Set to 'pending' to trigger regeneration
+    DocumentResponse:
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/Document'
+    DocumentCard:
+      type: object
+      description: Lightweight document object excluding payload and generation_logs
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Document unique identifier
+        app_id:
+          type: string
+          format: uuid
+          description: Workspace (app) identifier
+        created_at:
+          type: string
+          format: date-time
+          description: Document creation timestamp
+        document_template_id:
+          type: string
+          format: uuid
+          description: ID of the template used
+        document_template_identifier:
+          type:
+          - string
+          - 'null'
+          description: Human-readable identifier of the template
+        download_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Temporary signed URL to download the generated PDF. Valid for 1 hour.
+        failure_cause:
+          type:
+          - string
+          - 'null'
+          description: Reason for generation failure
+        filename:
+          type:
+          - string
+          - 'null'
+          description: Generated filename
+        meta:
+          description: Custom metadata
+          oneOf:
+          - type: object
+          - type: string
+        output_type:
+          type: string
+          enum:
+          - pdf
+          - image
+        preview_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+        public_share_link:
+          type:
+          - string
+          - 'null'
+          format: uri
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+        updated_at:
+          type: string
+          format: date-time
+    DocumentCreateRequest:
+      type: object
+      required:
+      - document
+      properties:
+        document:
+          type: object
+          required:
+          - document_template_id
+          properties:
+            document_template_id:
+              type: string
+              format: uuid
+              description: UUID of the template to use for generation
+            payload:
+              description: JSON data payload to render into the template
+              oneOf:
+              - type: object
+              - type: string
+            meta:
+              description: Custom metadata to attach to the document (max 200 KB)
+              oneOf:
+              - type: object
+              - type: string
+            status:
+              type: string
+              enum:
+              - draft
+              - pending
+              default: draft
+              description: Set to 'pending' to immediately trigger generation
+    PaginationMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+          description: Current page number
+        next_page:
+          type:
+          - integer
+          - 'null'
+          description: Next page number, null if on last page
+        prev_page:
+          type:
+          - integer
+          - 'null'
+          description: Previous page number, null if on first page
+        total_pages:
+          type: integer
+          description: Total number of pages
+    ApiError:
+      type: object
+      properties:
+        status:
+          type: string
+          description: HTTP status code as string
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Detailed error description
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+    DocumentCardListResponse:
+      type: object
+      properties:
+        document_cards:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentCard'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    DocumentCardResponse:
+      type: object
+      properties:
+        document_card:
+          $ref: '#/components/schemas/DocumentCard'
+  responses:
+    NotFound:
+      description: The requested resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Authentication failed — missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            errors:
+            - status: '401'
+              title: Unauthorized
+              detail: We were unable to authenticate you based on the provided API key.
+    UnprocessableEntity:
+      description: Validation errors — the request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    DocumentId:
+      name: id
+      in: path
+      required: true
+      description: Document UUID
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Authenticate using your PDF Monkey API secret key as a Bearer token in the Authorization header.
