@@ -1,0 +1,18 @@
+{
+  "provider": "pdf-monkey",
+  "sources": [
+    "pdf-monkey-authentication-api-openapi.yml",
+    "pdf-monkey-documents-api-openapi.yml",
+    "pdf-monkey-templates-api-openapi.yml"
+  ],
+  "outputs": [
+    "pdf-monkey-authentication-api-openapi.yml",
+    "pdf-monkey-documents-api-openapi.yml",
+    "pdf-monkey-templates-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
