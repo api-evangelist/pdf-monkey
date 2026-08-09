@@ -1,13 +1,10 @@
 aid: pdf-monkey
 name: PDF Monkey
-description: >-
-  PDF Monkey is a PDF generation REST API that uses Handlebars templates to
-  produce high-quality PDFs from JSON data. Developers build templates in a
-  visual dashboard, call the API with dynamic JSON payloads, and retrieve
-  generated documents via signed download URLs or webhooks. The service supports
-  document management, asynchronous and synchronous generation, webhook
-  notifications powered by Svix, fillable PDF forms, password protection, and
-  integrations with Zapier, Make, and n8n.
+description: PDF Monkey is a PDF generation REST API that uses Handlebars templates to produce high-quality
+  PDFs from JSON data. Developers build templates in a visual dashboard, call the API with dynamic JSON
+  payloads, and retrieve generated documents via signed download URLs or webhooks. The service supports
+  document management, asynchronous and synchronous generation, webhook notifications powered by Svix,
+  fillable PDF forms, password protection, and integrations with Zapier, Make, and n8n.
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -24,17 +21,15 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/pdf-monkey.png
 url: https://raw.githubusercontent.com/api-evangelist/pdf-monkey/refs/heads/main/apis.yml
 created: 2026-06-13
-modified: 2026-06-13
-specificationVersion: "0.19"
-
+modified: '2026-08-08'
+specificationVersion: '0.19'
 tags:
-  - PDF
-  - Document Generation
-  - Templates
-  - Handlebars
-  - REST API
-  - Webhooks
-
+- PDF
+- Document Generation
+- Templates
+- Handlebars
+- REST API
+- Webhooks
 apis:
 - aid: pdf-monkey:pdf-monkey-authentication-api
   name: PDF Monkey Authentication API
@@ -79,47 +74,38 @@ apis:
   - type: Authentication
     url: https://pdfmonkey.io/docs/api/authentication/
 common:
-
-  - type: AgenticAccess
-    url: agentic-access/pdf-monkey-agentic-access.yml
-  - type: DomainSecurity
-    url: security/pdf-monkey-domain-security.yml
-  - type: Authentication
-    url: authentication/pdf-monkey-authentication.yml
-  - type: Website
-    url: https://www.pdfmonkey.io
-
-  - type: Documentation
-    url: https://pdfmonkey.io/docs/
-
-  - type: GitHubOrg
-    url: https://github.com/pdfmonkey
-
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/pdfmonkey/
-
-  - type: Blog
-    url: https://www.pdfmonkey.io/blog/
-
-  - type: Pricing
-    url: https://www.pdfmonkey.io/pricing/
-
-  - type: StatusPage
-    url: https://status.pdfmonkey.io/
-
-  - type: X
-    url: https://twitter.com/pdfmonkey
-
-  - type: Plans
-    url: plans/pdf-monkey-plans-pricing.yml
-
-  - type: RateLimits
-    url: rate-limits/pdf-monkey-rate-limits.yml
-
-  - type: FinOps
-    url: finops/pdf-monkey-finops.yml
-
+- type: AgenticAccess
+  url: agentic-access/pdf-monkey-agentic-access.yml
+- type: DomainSecurity
+  url: security/pdf-monkey-domain-security.yml
+- type: Authentication
+  url: authentication/pdf-monkey-authentication.yml
+- type: Website
+  url: https://www.pdfmonkey.io
+- type: Documentation
+  url: https://pdfmonkey.io/docs/
+- type: GitHubOrg
+  url: https://github.com/pdfmonkey
+- type: LinkedIn
+  url: https://www.linkedin.com/company/pdfmonkey/
+- type: Blog
+  url: https://www.pdfmonkey.io/blog/
+- type: Pricing
+  url: https://www.pdfmonkey.io/pricing/
+- type: StatusPage
+  url: https://status.pdfmonkey.io/
+- type: X
+  url: https://twitter.com/pdfmonkey
+- type: Plans
+  url: plans/pdf-monkey-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/pdf-monkey-rate-limits.yml
+- type: FinOps
+  url: finops/pdf-monkey-finops.yml
+- type: GitHubOrganization
+  url: https://github.com/pdfmonkey
 maintainers:
-
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
+x-merged-from:
+- pdfmonkey
