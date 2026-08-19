@@ -1,0 +1,423 @@
+{
+  "item": [
+    {
+      "id": "adf2c62c-716b-41d9-9da5-c3c88042aa39",
+      "name": "Document Cards",
+      "description": {
+        "content": "Lightweight document representations for status polling and listing.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "11782354-e2ce-47c3-a71c-9100e0562a6b",
+          "name": "List document cards",
+          "request": {
+            "name": "List document cards",
+            "description": {
+              "content": "List documents as lightweight document cards (no payload), with pagination and filtering. The endpoint returns up to 24 items per page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_cards"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "1",
+                  "description": "Number of the page to show (default 1)."
+                },
+                {
+                  "disabled": false,
+                  "key": "q[document_template_id]",
+                  "value": "<string>",
+                  "description": "Filter on one or more template IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "q[status]",
+                  "value": "<string>",
+                  "description": "Filter on document status."
+                },
+                {
+                  "disabled": false,
+                  "key": "q[workspace_id]",
+                  "value": "<string>",
+                  "description": "ID of a workspace to filter on."
+                },
+                {
+                  "disabled": false,
+                  "key": "q[updated_since]",
+                  "value": "<dateTime>",
+                  "description": "Filter documents updated after a given point in time."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7eecec05-239e-4a52-ad31-512eca2f8200",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[number]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "q[document_template_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q[workspace_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q[updated_since]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"document_cards\": [\n    {\n      \"id\": \"77f00baa-c041-31b6-1b82-6152d198feb7\",\n      \"app_id\": \"e46000d5-2777-10b1-8b4b-aecf40992a54\",\n      \"document_template_id\": \"26031264-313d-7916-2403-a1081bbe3b3c\",\n      \"document_template_identifier\": \"string\",\n      \"status\": \"success\",\n      \"meta\": {\n        \"key_0\": 6735.044270241917,\n        \"key_1\": 5468\n      },\n      \"filename\": \"string\",\n      \"download_url\": \"http://elXUBgYyPZzfNDCg.iaxbILQesjiM,sQsHsO4knHroggCb9rHxZb+chE8M8ggIwkj\",\n      \"preview_url\": \"https://vMIZEhbbfLALeWMLqRkJZdoucPSDSv.tdqB-aE9YtrVDIqLIEwRdxY\",\n      \"public_share_link\": \"https://BmzKzyONsjACAFD.xanGIl5.es+PaEZnrujidOPwMKaxeSMgGdjq7MlFG1O2YaZxSdve5SX\",\n      \"output_type\": \"string\",\n      \"failure_cause\": \"string\",\n      \"created_at\": \"2009-05-25T18:23:33.836Z\",\n      \"updated_at\": \"1955-10-07T07:00:16.118Z\"\n    },\n    {\n      \"id\": \"3e6cef96-c67d-e41e-0f7a-7b1007e58bbd\",\n      \"app_id\": \"00e37b14-89e4-9d9d-1491-f6d54d08b603\",\n      \"document_template_id\": \"63f5da4e-a8dc-8c25-8b8b-09fc46dcefd6\",\n      \"document_template_identifier\": \"string\",\n      \"status\": \"failure\",\n      \"meta\": {\n        \"key_0\": 3168\n      },\n      \"filename\": \"string\",\n      \"download_url\": \"https://GVHdgCdFMaUQcAipApWBYNsvhquW.agjIMn9saaboCZGgOo3xTveTwCLQ2\",\n      \"preview_url\": \"https://mbJB.iovsWIL-y0vpoD2qzimwBeeOM65R7wRGbias6r.uEGzHDsalvflClWP2VTogOgegtNZtqRCY+xUD\",\n      \"public_share_link\": \"http://ZmOfhGYvDsgmfuSyXtHrSIIFypWkGIi.zdfhl3D\",\n      \"output_type\": \"string\",\n      \"failure_cause\": \"string\",\n      \"created_at\": \"1996-06-28T08:53:00.144Z\",\n      \"updated_at\": \"2014-09-24T12:40:56.560Z\"\n    }\n  ],\n  \"meta\": {\n    \"current_page\": 2816,\n    \"next_page\": 965,\n    \"prev_page\": 9390,\n    \"total_pages\": 1079,\n    \"total_count\": 5973\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04dd8e99-a3d6-4f1b-8349-640813826207",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_cards"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[number]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "q[document_template_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q[status]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q[workspace_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q[updated_since]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ebccb43-f6de-4255-96cc-73b623d52005",
+          "name": "Fetch a document card",
+          "request": {
+            "name": "Fetch a document card",
+            "description": {
+              "content": "Retrieve a lightweight document card for a document. This is the recommended way to poll generation status and obtain the download URL, since it omits the heavy payload attribute.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "document_cards",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The UUID of the document."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7072ba35-dbf2-4bbd-9f49-84aeba6ea139",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_cards",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The UUID of the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"document_card\": {\n    \"id\": \"2d6fb709-6121-5f14-a8cc-80daf0cfae43\",\n    \"app_id\": \"37538729-1207-c5d2-616d-000e425f3c35\",\n    \"document_template_id\": \"cbeb4ae5-036b-b685-06d1-6f09ce5f1cd6\",\n    \"document_template_identifier\": \"string\",\n    \"status\": \"generating\",\n    \"meta\": {\n      \"key_0\": \"string\"\n    },\n    \"filename\": \"string\",\n    \"download_url\": \"http://LCqKQtkKxG.jdaajgfG+aDDXhDA2lD0epGspmc2UlLLkQTlMGBxRpwnu83qnyQ9PbF,KjNcLQu0u\",\n    \"preview_url\": \"https://LHhDCPCHGK.bxxLNjXdLBBFIKJP9\",\n    \"public_share_link\": \"http://GynbF.jkm,aKwlYR1kuvUHhl,j0D2C\",\n    \"output_type\": \"string\",\n    \"failure_cause\": \"string\",\n    \"created_at\": \"2021-03-21T18:03:14.920Z\",\n    \"updated_at\": \"1996-05-15T17:11:12.222Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5ed1c8b-32b7-4075-82db-dac67c90b371",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_cards",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The UUID of the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "547cd7d8-fda1-4184-a1c4-5ddb262cfdc2",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "document_cards",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The UUID of the document."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pdfmonkey.io/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e5c985f8-2b9d-4af3-bc88-9593177559c8",
+    "name": "PDFMonkey Document Cards API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "PDFMonkey generates PDF (and image) documents from HTML + Liquid templates and a JSON data payload. The REST API lets you create, retrieve, update, and delete documents (asynchronously or synchronously), poll lightweight document cards for status and download URLs, and manage document templates.\n\nContact Support:\n Name: PDFMonkey Support",
+      "type": "text/plain"
+    }
+  }
+}

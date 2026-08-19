@@ -1,0 +1,162 @@
+{
+  "item": [
+    {
+      "id": "48726822-d306-48e6-812d-36d110e09a3f",
+      "name": "Authentication",
+      "description": {
+        "content": "Endpoints for verifying API credentials and retrieving account information",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "85918037-ab6d-40d9-8f5f-d1ab276860f6",
+          "name": "Get current user",
+          "request": {
+            "name": "Get current user",
+            "description": {
+              "content": "Retrieve the current authenticated user account information. Useful for verifying API credentials.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "current_user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6204f6b-5e54-4538-8ca8-9b2c02ef6e6e",
+              "name": "Authenticated user details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current_user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"current_user\": {\n    \"id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n    \"auth_token\": \"your_api_key_here\",\n    \"available_documents\": 500,\n    \"created_at\": \"2024-01-15T10:30:00Z\",\n    \"current_plan\": \"starter\",\n    \"current_plan_interval\": \"monthly\",\n    \"desired_name\": \"Acme Corp\",\n    \"email\": \"user@example.com\",\n    \"lang\": \"en\",\n    \"paying_customer\": true,\n    \"trial_ends_on\": null,\n    \"updated_at\": \"2024-06-01T08:00:00Z\",\n    \"block_resources\": false,\n    \"share_links\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "860114ef-8a07-4e10-adc6-b904f6a63877",
+              "name": "Authentication failed — missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "current_user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"status\": \"401\",\n      \"title\": \"Unauthorized\",\n      \"detail\": \"We were unable to authenticate you based on the provided API key.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pdfmonkey.io/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "838194df-030d-4a38-adcf-89fcac838c74",
+    "name": "PDF Monkey Authentication API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for generating, managing, and retrieving PDF documents using Handlebars/Liquid templates and JSON data payloads. Supports asynchronous and synchronous generation modes, document lifecycle management, template management, and webhook notifications for real-time event handling.",
+      "type": "text/plain"
+    }
+  }
+}

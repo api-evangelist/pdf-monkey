@@ -1,0 +1,183 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDF Monkey Authentication Documents API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pdfmonkey.io/api/v1/documents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Asynchronously create a new PDF document from a template. Returns immediately with status 'pending'. Poll the document_cards endpoint or use webhooks to detect completion."
+        },
+        {
+          "info": {
+            "name": "Create a document synchronously",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pdfmonkey.io/api/v1/documents/sync",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Synchronously create and generate a PDF document. The request waits until generation is complete (up to 6 minutes) before returning. Returns a lightweight DocumentCard object."
+        },
+        {
+          "info": {
+            "name": "Get a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdfmonkey.io/api/v1/documents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Document UUID"
+              }
+            ]
+          },
+          "docs": "Retrieve the full document object including payload and generation logs. Use document_cards/{id} when the full payload is not needed."
+        },
+        {
+          "info": {
+            "name": "Update a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.pdfmonkey.io/api/v1/documents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Document UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a document's properties. Set status to 'pending' to trigger regeneration."
+        },
+        {
+          "info": {
+            "name": "Delete a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pdfmonkey.io/api/v1/documents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Document UUID"
+              }
+            ]
+          },
+          "docs": "Permanently delete a document and its generated file."
+        },
+        {
+          "info": {
+            "name": "List document cards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdfmonkey.io/api/v1/document_cards",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "q[document_template_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by template UUID or comma-separated list of UUIDs"
+              },
+              {
+                "name": "q[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by document status"
+              },
+              {
+                "name": "q[workspace_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by workspace UUID"
+              },
+              {
+                "name": "q[updated_since]",
+                "value": "",
+                "type": "query",
+                "description": "Filter documents updated after this timestamp (Unix timestamp or ISO 8601)"
+              },
+              {
+                "name": "q[search]",
+                "value": "",
+                "type": "query",
+                "description": "Search by document ID (exact) or filename (partial match)"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of lightweight document card objects. Supports filtering by template, status, workspace, and update time. Returns up to 24 documents per page."
+        },
+        {
+          "info": {
+            "name": "Get a document card",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdfmonkey.io/api/v1/document_cards/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Document UUID"
+              }
+            ]
+          },
+          "docs": "Retrieve a lightweight document card object. Recommended for polling document generation status as it excludes the large payload and generation_logs fields."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

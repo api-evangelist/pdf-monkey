@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDFMonkey Document Cards API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Cards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List document cards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdfmonkey.io/api/v1/document_cards",
+            "params": [
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Number of the page to show (default 1)."
+              },
+              {
+                "name": "q[document_template_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter on one or more template IDs."
+              },
+              {
+                "name": "q[status]",
+                "value": "",
+                "type": "query",
+                "description": "Filter on document status."
+              },
+              {
+                "name": "q[workspace_id]",
+                "value": "",
+                "type": "query",
+                "description": "ID of a workspace to filter on."
+              },
+              {
+                "name": "q[updated_since]",
+                "value": "",
+                "type": "query",
+                "description": "Filter documents updated after a given point in time."
+              }
+            ]
+          },
+          "docs": "List documents as lightweight document cards (no payload), with pagination and filtering. The endpoint returns up to 24 items per page."
+        },
+        {
+          "info": {
+            "name": "Fetch a document card",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdfmonkey.io/api/v1/document_cards/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the document."
+              }
+            ]
+          },
+          "docs": "Retrieve a lightweight document card for a document. This is the recommended way to poll generation status and obtain the download URL, since it omits the heavy payload attribute."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

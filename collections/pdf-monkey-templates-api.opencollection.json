@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDF Monkey Authentication Templates API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List template cards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdfmonkey.io/api/v1/document_template_cards",
+            "params": [
+              {
+                "name": "q[workspace_id]",
+                "value": "",
+                "type": "query",
+                "description": "Workspace UUID to filter templates by"
+              },
+              {
+                "name": "q[folders]",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated folder IDs; use 'none' for root or 'all' for all folders"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort attribute"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of lightweight template card objects for a given workspace."
+        },
+        {
+          "info": {
+            "name": "Create a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pdfmonkey.io/api/v1/document_templates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new document template with HTML/Liquid body, SCSS styles, sample data, and generation settings."
+        },
+        {
+          "info": {
+            "name": "Get a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdfmonkey.io/api/v1/document_templates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Template UUID"
+              }
+            ]
+          },
+          "docs": "Retrieve the full document template object including body, styles, settings, and test data."
+        },
+        {
+          "info": {
+            "name": "Update a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.pdfmonkey.io/api/v1/document_templates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Template UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing document template's properties."
+        },
+        {
+          "info": {
+            "name": "Delete a template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pdfmonkey.io/api/v1/document_templates/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Template UUID"
+              }
+            ]
+          },
+          "docs": "Permanently delete a document template."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
