@@ -29,6 +29,13 @@ tags:
 - Templates
 - Handlebars
 - REST API
+- Webhook
+tags_raw:
+- PDF
+- Document Generation
+- Templates
+- Handlebars
+- REST API
 - Webhooks
 apis:
 - aid: pdf-monkey:pdf-monkey-authentication-api
