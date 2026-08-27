@@ -80,6 +80,16 @@ apis:
     url: https://pdfmonkey.io/docs/
   - type: Authentication
     url: https://pdfmonkey.io/docs/api/authentication/
+- aid: pdf-monkey:pdf-monkey-document-cards-api
+  name: PDF Monkey Document Cards API
+  description: Lightweight document representations for status polling and listing.
+  humanURL: https://pdfmonkey.io/docs/
+  baseURL: https://api.pdfmonkey.io/api/v1
+  tags:
+  - Document Cards
+  properties:
+  - type: OpenAPI
+    url: openapi/pdf-monkey-document-cards-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/pdf-monkey-agentic-access.yml
