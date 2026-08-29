@@ -5,6 +5,18 @@ description: PDF Monkey is a PDF generation REST API that uses Handlebars templa
   payloads, and retrieve generated documents via signed download URLs or webhooks. The service supports
   document management, asynchronous and synchronous generation, webhook notifications powered by Svix,
   fillable PDF forms, password protection, and integrations with Zapier, Make, and n8n.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
