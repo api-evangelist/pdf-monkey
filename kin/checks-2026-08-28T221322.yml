@@ -2,14 +2,14 @@
 kin_checks:
   slug: pdf-monkey
   schema_version: 0.15.1
-  scored_at: '2026-08-27'
-  run_ts: 2026-08-27T140727
+  scored_at: '2026-08-28'
+  run_ts: 2026-08-28T221322
   note: Actionable checks only (missed + partial). earned/na are every other check
     in rubric/scoring-0.15.1.yml; counts below let you verify that.
   counts:
     total: 130
-    earned: 40
-    partial: 8
+    earned: 39
+    partial: 9
     missed: 58
     na: 24
   checks:
@@ -21,10 +21,10 @@ kin_checks:
     status: missed
   - id: openapi_3_2
     status: missed
-    detail: 0 of 3 openapi documents pass
+    detail: 0 of 4 openapi documents pass
   - id: webhooks_or_callbacks
     status: missed
-    detail: 0 of 3 openapi documents pass
+    detail: 0 of 4 openapi documents pass
   - id: asyncapi_present
     status: missed
   - id: json_schema_present
@@ -134,11 +134,11 @@ kin_checks:
     status: missed
   - id: examples_present
     status: partial
-    earned: 2.17
+    earned: 1.63
   - id: components_reuse
     status: partial
-    earned: 2.0
-    detail: 2 of 3 openapi documents pass
+    earned: 1.5
+    detail: 2 of 4 openapi documents pass
   - id: rules_present
     status: partial
     earned: 2.5
@@ -157,6 +157,10 @@ kin_checks:
     status: partial
     earned: 3.5
     detail: 'grade: bearer'
+  - id: openapi_examples
+    status: partial
+    earned: 3.5
+    detail: 'grade: partial'
   - id: rate_limit_signal
     status: partial
     earned: 3.5
