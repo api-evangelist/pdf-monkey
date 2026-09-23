@@ -1,9 +1,7 @@
 {
   "provider": "pdf-monkey",
   "sources": [
-    "pdf-monkey-authentication-api-openapi.yml",
-    "pdf-monkey-documents-api-openapi.yml",
-    "pdf-monkey-templates-api-openapi.yml"
+    "_original/openapi.json"
   ],
   "outputs": [
     "pdf-monkey-authentication-api-openapi.yml",
@@ -13,6 +11,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/pdf-monkey-openapi.yml: archived document superseded by a larger archived document",
+    "pdf-monkey-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pdf-monkey-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pdf-monkey-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: PDF Monkey Authentication API
   description: REST API for generating, managing, and retrieving PDF documents using Handlebars/Liquid templates and JSON data payloads. Supports asynchronous and synchronous generation modes, document lifecycle management, template management, and webhook notifications for real-time event handling.
@@ -51,11 +51,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    CurrentUserResponse:
-      type: object
-      properties:
-        current_user:
-          $ref: '#/components/schemas/CurrentUser'
     ApiError:
       type: object
       properties:
@@ -130,6 +125,11 @@ components:
         share_links:
           type: boolean
           description: Whether public share links are enabled
+    CurrentUserResponse:
+      type: object
+      properties:
+        current_user:
+          $ref: '#/components/schemas/CurrentUser'
   responses:
     Unauthorized:
       description: Authentication failed — missing or invalid API key
