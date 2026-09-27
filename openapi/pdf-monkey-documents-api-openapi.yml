@@ -222,18 +222,86 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ApiError:
+    DocumentCardListResponse:
       type: object
       properties:
+        document_cards:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentCard'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+    DocumentCard:
+      type: object
+      description: Lightweight document object excluding payload and generation_logs
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Document unique identifier
+        app_id:
+          type: string
+          format: uuid
+          description: Workspace (app) identifier
+        created_at:
+          type: string
+          format: date-time
+          description: Document creation timestamp
+        document_template_id:
+          type: string
+          format: uuid
+          description: ID of the template used
+        document_template_identifier:
+          type:
+          - string
+          - 'null'
+          description: Human-readable identifier of the template
+        download_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+          description: Temporary signed URL to download the generated PDF. Valid for 1 hour.
+        failure_cause:
+          type:
+          - string
+          - 'null'
+          description: Reason for generation failure
+        filename:
+          type:
+          - string
+          - 'null'
+          description: Generated filename
+        meta:
+          description: Custom metadata
+          oneOf:
+          - type: object
+          - type: string
+        output_type:
+          type: string
+          enum:
+          - pdf
+          - image
+        preview_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+        public_share_link:
+          type:
+          - string
+          - 'null'
+          format: uri
         status:
+          $ref: '#/components/schemas/DocumentStatus'
+        updated_at:
           type: string
-          description: HTTP status code as string
-        title:
-          type: string
-          description: Short error title
-        detail:
-          type: string
-          description: Detailed error description
+          format: date-time
+    DocumentResponse:
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/Document'
     Document:
       type: object
       properties:
@@ -315,31 +383,6 @@ components:
           type: string
           format: date-time
           description: Last document update timestamp
-    DocumentCardListResponse:
-      type: object
-      properties:
-        document_cards:
-          type: array
-          items:
-            $ref: '#/components/schemas/DocumentCard'
-        meta:
-          $ref: '#/components/schemas/PaginationMeta'
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiError'
-    DocumentStatus:
-      type: string
-      enum:
-      - draft
-      - pending
-      - generating
-      - success
-      - failure
-      description: Current generation status of a document
     DocumentUpdateRequest:
       type: object
       required:
@@ -365,16 +408,25 @@ components:
               - draft
               - pending
               description: Set to 'pending' to trigger regeneration
-    DocumentResponse:
+    ErrorResponse:
       type: object
       properties:
-        document:
-          $ref: '#/components/schemas/Document'
-    DocumentCardResponse:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+    ApiError:
       type: object
       properties:
-        document_card:
-          $ref: '#/components/schemas/DocumentCard'
+        status:
+          type: string
+          description: HTTP status code as string
+        title:
+          type: string
+          description: Short error title
+        detail:
+          type: string
+          description: Detailed error description
     PaginationMeta:
       type: object
       properties:
@@ -394,72 +446,6 @@ components:
         total_pages:
           type: integer
           description: Total number of pages
-    DocumentCard:
-      type: object
-      description: Lightweight document object excluding payload and generation_logs
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Document unique identifier
-        app_id:
-          type: string
-          format: uuid
-          description: Workspace (app) identifier
-        created_at:
-          type: string
-          format: date-time
-          description: Document creation timestamp
-        document_template_id:
-          type: string
-          format: uuid
-          description: ID of the template used
-        document_template_identifier:
-          type:
-          - string
-          - 'null'
-          description: Human-readable identifier of the template
-        download_url:
-          type:
-          - string
-          - 'null'
-          format: uri
-          description: Temporary signed URL to download the generated PDF. Valid for 1 hour.
-        failure_cause:
-          type:
-          - string
-          - 'null'
-          description: Reason for generation failure
-        filename:
-          type:
-          - string
-          - 'null'
-          description: Generated filename
-        meta:
-          description: Custom metadata
-          oneOf:
-          - type: object
-          - type: string
-        output_type:
-          type: string
-          enum:
-          - pdf
-          - image
-        preview_url:
-          type:
-          - string
-          - 'null'
-          format: uri
-        public_share_link:
-          type:
-          - string
-          - 'null'
-          format: uri
-        status:
-          $ref: '#/components/schemas/DocumentStatus'
-        updated_at:
-          type: string
-          format: date-time
     DocumentCreateRequest:
       type: object
       required:
@@ -491,13 +477,21 @@ components:
               - pending
               default: draft
               description: Set to 'pending' to immediately trigger generation
+    DocumentCardResponse:
+      type: object
+      properties:
+        document_card:
+          $ref: '#/components/schemas/DocumentCard'
+    DocumentStatus:
+      type: string
+      enum:
+      - draft
+      - pending
+      - generating
+      - success
+      - failure
+      description: Current generation status of a document
   responses:
-    UnprocessableEntity:
-      description: Validation errors — the request body is invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: The requested resource was not found
       content:
@@ -515,6 +509,12 @@ components:
             - status: '401'
               title: Unauthorized
               detail: We were unable to authenticate you based on the provided API key.
+    UnprocessableEntity:
+      description: Validation errors — the request body is invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     DocumentId:
       name: id
