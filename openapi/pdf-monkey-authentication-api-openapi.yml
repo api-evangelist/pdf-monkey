@@ -51,6 +51,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiError'
+    CurrentUserResponse:
+      type: object
+      properties:
+        current_user:
+          $ref: '#/components/schemas/CurrentUser'
     ApiError:
       type: object
       properties:
@@ -63,11 +75,6 @@ components:
         detail:
           type: string
           description: Detailed error description
-    CurrentUserResponse:
-      type: object
-      properties:
-        current_user:
-          $ref: '#/components/schemas/CurrentUser'
     CurrentUser:
       type: object
       properties:
@@ -123,13 +130,6 @@ components:
         share_links:
           type: boolean
           description: Whether public share links are enabled
-    ErrorResponse:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ApiError'
   responses:
     Unauthorized:
       description: Authentication failed — missing or invalid API key
