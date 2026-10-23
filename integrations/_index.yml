@@ -54,3 +54,16 @@
     builder: Pipedream repo (component)
   status: not-a-workflow
   arazzo: null
+- slug: pdf-monkey-bubble-own
+  label: Bubble (own)
+  partner: bubble
+  partner_name: Bubble (own)
+  category: Api
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://bubble.io/plugin/pdfmonkey-1634904776187x632941607749681200
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
