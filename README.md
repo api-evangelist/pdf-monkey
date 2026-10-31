@@ -64,66 +64,152 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-PDF Monkey is a PDF generation REST API that uses Handlebars templates to produce high-quality PDFs from JSON data. Developers build templates in a visual dashboard, call the API with dynamic JSON payloads, and retrieve generated documents via signed download URLs or webhooks.
+PDF Monkey is a PDF generation REST API that uses Handlebars templates to produce high-quality PDFs from JSON data. Developers build templates in a visual dashboard, call the API with dynamic JSON payloads, and retrieve generated documents via signed download URLs or webhooks. The service supports document management, asynchronous and synchronous generation, webhook notifications powered by Svix, fillable PDF forms, password protection, and integrations with Zapier, Make, and n8n.
 
-## API
+**Areas:** PDF · Document Generation · Templates · Handlebars · REST API · Webhook
 
-**Base URL:** `https://api.pdfmonkey.io/api/v1`
+## PDF Monkey on APIs.io
 
-**Authentication:** Bearer token in the `Authorization` header. Obtain your secret key from the PDF Monkey dashboard.
+Everything profiled for PDF Monkey is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/pdf-monkey/](https://apis.io/providers/pdf-monkey/)** — or go straight to one of the APIs or properties below.
 
-### Key Endpoints
+### APIs (3)
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/documents` | Create and queue a document for async generation |
-| POST | `/documents/sync` | Create a document and wait for completion (6-min timeout) |
-| GET | `/document_cards/{id}` | Retrieve lightweight document status (recommended for polling) |
-| GET | `/documents/{id}` | Retrieve full document with payload and logs |
-| GET | `/document_cards` | List documents with pagination (24 per page) |
-| PUT | `/documents/{id}` | Update document payload or trigger generation |
-| DELETE | `/documents/{id}` | Permanently delete a document and its file |
+- [PDF Monkey Authentication API](https://apis.io/apis/pdf-monkey/pdf-monkey-authentication-api/) — Endpoints for verifying API credentials and retrieving account information
+- [PDF Monkey Documents API](https://apis.io/apis/pdf-monkey/pdf-monkey-documents-api/) — Create, retrieve, update, delete, and list PDF documents
+- [PDF Monkey Templates API](https://apis.io/apis/pdf-monkey/pdf-monkey-templates-api/) — Manage document templates for PDF generation
 
-### Webhooks
+### Published properties
 
-PDF Monkey uses Svix to deliver signed webhook notifications. Two event types are supported:
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- `documents.generation.success` — document generated; `download_url` is available (valid 1 hour)
-- `documents.generation.failure` — generation failed; `failure_cause` describes the error
+#### Agentic access (1)
 
-Webhooks can be routed workspace-wide, per template, per folder, or per document via the `_webhook_channel` meta key.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-## Plans
+- [Pdf Monkey Agentic Access](https://apis.io/agentic-access/pdf-monkey/pdf-monkey-agentic-access/)
 
-| Plan | Price (EUR/mo) | Documents/mo | Retention |
-|------|---------------|--------------|-----------|
-| Free | €0 | 20 | 1 day |
-| Starter | €5 | 300 | 1 day |
-| Pro | €15 | 3,000 | 7 days |
-| Pro+ | €60 | 5,000 | Unlimited |
-| Premium | €300 | 60,000 | Unlimited |
+#### JSON Schema (2)
 
-Annual billing saves 10%. Boost Packs add 1,000 documents for €5 each.
+The data models the API reads and writes.
 
-## Links
+- [Document](https://apis.io/schemas/pdf-monkey/document/)
+- [DocumentTemplate](https://apis.io/schemas/pdf-monkey/document-template/)
 
-- **Website:** https://www.pdfmonkey.io
-- **Documentation:** https://pdfmonkey.io/docs/
-- **GitHub:** https://github.com/pdfmonkey
-- **Status:** https://status.pdfmonkey.io/
-- **Pricing:** https://www.pdfmonkey.io/pricing/
-- **Blog:** https://www.pdfmonkey.io/blog/
-- **LinkedIn:** https://www.linkedin.com/company/pdfmonkey/
-- **X/Twitter:** https://twitter.com/pdfmonkey
+#### JSON-LD (1)
 
-## SDKs and Integrations
+Linked-data contexts for the provider's vocabulary.
 
-- **Ruby Gem:** [pdfmonkey-ruby](https://github.com/pdfmonkey/pdfmonkey-ruby)
-- **CLI:** [pdfmonkey-cli](https://github.com/pdfmonkey/pdfmonkey-cli)
-- **n8n:** [n8n-nodes-pdfmonkey](https://github.com/pdfmonkey/n8n-nodes-pdfmonkey)
-- **Zapier:** [pdfmonkey-zapier](https://github.com/pdfmonkey/pdfmonkey-zapier)
-- **Bubble:** [pdfmonkey-bubble](https://github.com/pdfmonkey/pdfmonkey-bubble)
+- [Pdf Monkey Context](https://apis.io/jsonld/pdf-monkey/pdf-monkey/)
 
-## APIs.json
+#### Examples (3)
 
-This repository contains an [APIs.json 0.19](https://apisjson.org) profile for PDF Monkey maintained by [API Evangelist](https://apievangelist.com).
+Example requests and responses.
+
+- [Create Document](https://apis.io/examples/pdf-monkey/create-document/)
+- [Create Document Sync](https://apis.io/examples/pdf-monkey/create-document-sync/)
+- [List Documents](https://apis.io/examples/pdf-monkey/list-documents/)
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [PDF Monkey Authentication API](https://apis.io/collections/pdf-monkey/open-pdf-monkey-authentication-api/)
+- [PDFMonkey Document Cards API](https://apis.io/collections/pdf-monkey/open-pdf-monkey-document-cards-api/)
+- [PDF Monkey Authentication Documents API](https://apis.io/collections/pdf-monkey/open-pdf-monkey-documents-api/)
+- [PDF Monkey Authentication Templates API](https://apis.io/collections/pdf-monkey/open-pdf-monkey-templates-api/)
+- [PDFMonkey API](https://apis.io/collections/pdf-monkey/open-pdfmonkey/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [PDF Monkey — jsonschema rules](https://apis.io/rules/pdf-monkey/pdf-monkey-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Pdf Monkey Authentication](https://apis.io/security/pdf-monkey/pdf-monkey-authentication/)
+- [Pdf Monkey Domain Security](https://apis.io/security/pdf-monkey/pdf-monkey-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Pdf Monkey Plans Pricing](https://apis.io/plans/pdf-monkey/pdf-monkey-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Pdf Monkey Rate Limits](https://apis.io/rate-limits/pdf-monkey/pdf-monkey-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Pdf Monkey Finops](https://apis.io/finops/pdf-monkey/pdf-monkey-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.pdfmonkey.io)
+- [Documentation](https://pdfmonkey.io/docs/)
+- [Pricing](https://www.pdfmonkey.io/pricing/)
+- [Blog](https://www.pdfmonkey.io/blog/)
+- [GitHub](https://github.com/pdfmonkey)
+- [Status](https://status.pdfmonkey.io/)
+
+## API Evangelist rating
+
+**Kin Score 32.8** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 62.6 |
+| Contract governance | 9.8 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 18.4 |
+
+**Agent readiness 22.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/pdf-monkey/](https://apis.io/providers/pdf-monkey/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for PDF Monkey: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/pdf-monkey/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
